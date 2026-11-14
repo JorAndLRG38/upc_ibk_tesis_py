@@ -1,0 +1,25 @@
+# Base experimental exclusivamente numerica. No es un modelo validado de 90 dias.
+seed: 42
+holdout_folds: 5
+outer_folds: 3
+inner_folds: 3
+forest_trees: 64
+forest_max_depth: 5
+boruta_iterations: 50
+boruta_percentile: 100
+boruta_alpha: 0.05
+rfecv_step: 1
+smote_neighbors: 5
+enn_neighbors: 3
+features:
+  - edad
+  - antiguedad_negocio_meses
+  - ingreso_mensual
+  - ventas_mensuales
+  - monto_solicitado
+  - plazo_meses
+  - tasa_interes_anual
+  - n_entidades_sbs
+  - deuda_total_sbs
+  - max_dias_atraso_12m
+  - n_creditos_previos

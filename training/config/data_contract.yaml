@@ -1,0 +1,56 @@
+# Contrato de datos del dataset analítico (HU01, TK-01.1)
+# Unidad de análisis: una solicitud de crédito aprobada a una persona natural
+# con negocio (RUC 10) en la etapa de originación (application scoring).
+# Ajustar nombres y tipos al dataset definitivo (Plan A: data anonimizada del
+# caso de estudio; Plan B: dataset sintético del equipo).
+
+dataset:
+  nombre: credit_risk_microempresa_ruc10
+  version_contrato: "1.0.0"
+  min_filas: 1000
+  formato_permitido: [csv, parquet, xlsx]
+  separador_csv: ","
+  encoding: utf-8
+
+objetivo:
+  columna: default_12m
+  descripcion: "1 si el crédito presentó atraso >= 30 días en los 12 meses posteriores al desembolso"
+  valores_validos: [0, 1]
+
+identificadores:
+  # Se seudonimiza con HMAC-SHA256 (ISO/IEC 27001:2022, control 8.11)
+  seudonimizar: [cliente_id]
+  # Identificadores directos: se eliminan en la ingesta y nunca se escriben a disco
+  eliminar: [ruc, nro_documento, nombre_cliente, telefono, correo]
+
+columnas:
+  cliente_id:                 {tipo: string,   critica: true}
+  fecha_solicitud:            {tipo: date,     critica: true}
+  edad:                       {tipo: int,      critica: true,  rango: [18, 85]}
+  estado_civil:               {tipo: category, critica: false}
+  nivel_educativo:            {tipo: category, critica: false}
+  departamento:               {tipo: category, critica: true}
+  actividad_economica:        {tipo: category, critica: true}
+  tipo_vivienda:              {tipo: category, critica: false}
+  canal_originacion:          {tipo: category, critica: false}
+  antiguedad_negocio_meses:   {tipo: int,      critica: true,  rango: [0, 600]}
+  ingreso_mensual:            {tipo: float,    critica: true,  rango: [0, 500000]}
+  ventas_mensuales:           {tipo: float,    critica: false, rango: [0, 2000000]}
+  monto_solicitado:           {tipo: float,    critica: true,  rango: [100, 500000]}
+  plazo_meses:                {tipo: int,      critica: true,  rango: [1, 60]}
+  tasa_interes_anual:         {tipo: float,    critica: true,  rango: [0, 120]}
+  n_entidades_sbs:            {tipo: int,      critica: true,  rango: [0, 30]}
+  deuda_total_sbs:            {tipo: float,    critica: true,  rango: [0, 5000000]}
+  max_dias_atraso_12m:        {tipo: int,      critica: true,  rango: [0, 720]}
+  n_creditos_previos:         {tipo: int,      critica: false, rango: [0, 100]}
+  calificacion_sbs:           {tipo: ordinal,  critica: true,
+                               orden: [Normal, CPP, Deficiente, Dudoso, Perdida]}
+  tiene_garantia:             {tipo: bool,     critica: false}
+  default_12m:                {tipo: int,      critica: true}
+
+preprocesamiento:
+  semilla: 42
+  test_size: 0.20
+  umbral_alta_cardinalidad: 10     # > umbral: target encoding; <= umbral: one-hot
+  categoria_faltante: Desconocido
+  umbral_nulos_criticos: 0.01      # criterio de aceptación HU03 (< 1 %)
