@@ -4,7 +4,8 @@ La base experimental de **HU04 (Boruta), HU05 (RFECV) y HU06 (SMOTE-ENN)**
 se ejecuta por separado con `python -m training.run_sprint2 --demo --source
 data/source/solicitudes_demo.csv`. Consultar [la guía del Sprint 2](docs/sprint2_hu04_hu06.md)
 y `requirements-sprint2.txt`. Usa variables numéricas del CSV sintético; la
-integración SQL, el objetivo de 90 días y el entrenamiento XGBoost siguen pendientes.
+integración SQL, la validación de `default_12m` con datos definitivos y el
+entrenamiento XGBoost siguen pendientes.
 
 Incremento del Sprint 1 del proyecto *Modelo predictivo basado en XGBoost para la identificación
 temprana del riesgo de incumplimiento en créditos otorgados a microempresas unipersonales*.

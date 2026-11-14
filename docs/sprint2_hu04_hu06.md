@@ -9,9 +9,11 @@ de Boruta, RFECV ni SMOTE-ENN ni sus dependencias.
 Este incremento implementa **algoritmos reales**, un recorrido reproducible y
 pruebas para las tres historias. Es una **base experimental de laboratorio**:
 no constituye el cierre académico integral de las HU ni un modelo listo para
-evaluar clientes. Los criterios completos de aceptación/DoD deben revisarse
-cuando estén disponibles; la imagen recibida contiene las historias, prioridad
-y estimación, pero no sus criterios de aceptación.
+evaluar clientes. La tesis revisada describe la DoD y los criterios propuestos
+del Sprint 2 (capítulo 4, sección 4.2); su cumplimiento integral sigue sin
+acreditarse, especialmente para HU07 y las métricas predictivas. La
+[matriz de trazabilidad](./matriz_trazabilidad.md) separa el avance técnico
+verificado de lo que permanece pendiente.
 
 | Historia | Implementación | Evidencia producida | Límite actual |
 |---|---|---|---|
@@ -24,7 +26,7 @@ y estimación, pero no sus criterios de aceptación.
 Desde PowerShell, en la raíz del proyecto:
 
 ```powershell
-cd C:\Users\jorAN\Downloads\codigo
+cd C:\ruta\al\repositorio\upc_ibk_tesis_py
 & .\.venv\Scripts\python.exe -m pip install -r requirements-sprint2.txt
 $env:RISK_PSEUDO_SALT = 'solo-prueba-local-datos-sinteticos'
 & .\.venv\Scripts\python.exe -m training.run_sprint2 --demo --source .\data\source\solicitudes_demo.csv
@@ -104,7 +106,8 @@ sin inventar AUC, recall, F1 ni probabilidades de atraso.
 
 Agrupar por cliente evita que un cliente aparezca en los dos lados de una
 partición, pero **no equivale a validación temporal**. La prueba fuera de tiempo,
-el control de ventanas de 90 días y los snapshots maduros siguen pendientes.
+la comprobación del horizonte de 12 meses posterior al desembolso y la
+madurez de las etiquetas siguen pendientes.
 
 ## Por qué la base inicial usa solo variables numéricas
 
@@ -145,9 +148,10 @@ al cliente. `Sprint2Preparation.fit_resample` recibe solo entrenamiento y
 El adaptador que construya estos objetos desde SQL Server **aún no está
 implementado**. Antes de usarlo, deben verificarse las claves, relaciones,
 fechas, filtros y disponibilidad histórica de cada atributo. La etiqueta del
-CSV sigue siendo `default_12m` (atraso >= 30 días en 12 meses); no se ha
-renombrado para simular el objetivo de la tesis. Hay que construir y comprobar
-`target_incumplimiento` para al menos un día de atraso en los siguientes 90 días.
+CSV sigue siendo `default_12m` (atraso >= 30 días durante los 12 meses
+posteriores al desembolso), que coincide con la definición operativa
+documentada en la tesis. Hay que comprobar su construcción y madurez temporal
+con el dataset definitivo; la etiqueta sintética no demuestra ese evento.
 
 ## Pruebas
 
@@ -190,7 +194,7 @@ predictiva. Los resultados detallados por fold pueden diferir del ajuste final.
 
 ## Continuidad para el cierre integral
 
-Completar la extracción temporal de SQL Server y el contrato de 90 días;
+Completar la extracción de SQL Server y validar `default_12m` con datos reales;
 integrar categorías con tratamiento justificado; entrenar XGBoost (HU07) y
 comparar con una base sin remuestreo; evaluar con particiones y métricas
 adecuadas, calibración y umbrales; documentar resultados y revisar los criterios

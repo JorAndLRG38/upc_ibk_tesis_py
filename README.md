@@ -1,9 +1,12 @@
 # Identificación temprana del riesgo de atraso — UPC
 
-Proyecto de tesis en desarrollo para anticipar **al menos un día de atraso en
-los próximos 90 días** en créditos vigentes de microempresas unipersonales
-(RUC 10). Busca apoyar el seguimiento preventivo de clientes en un entorno
-controlado de investigación.
+Proyecto de tesis en desarrollo para estimar, **en la originación de una
+solicitud de crédito**, el riesgo de incumplimiento de microempresas
+unipersonales (RUC 10). La definición operativa documentada de `default_12m`
+es un atraso de al menos 30 días durante los 12 meses posteriores al
+desembolso; debe confirmarse con el dataset definitivo. El proyecto busca
+apoyar la gestión preventiva del riesgo en un entorno controlado de
+investigación.
 
 ## Estado del desarrollo
 
@@ -16,13 +19,14 @@ controlado de investigación.
 | HU06: SMOTE-ENN | Remuestreo aplicado únicamente al entrenamiento; validación y test conservan sus filas. |
 
 El Sprint 2 es una **base experimental con variables numéricas de datos
-sintéticos**. El CSV de demostración todavía usa `default_12m` (atraso de al
-menos 30 días en 12 meses), que **no equivale al objetivo de 90 días de la
-tesis**. Quedan pendientes la extracción desde SQL Server hacia el pipeline,
-los snapshots y el etiquetado temporal, el entrenamiento y evaluación final
-de XGBoost y el servicio de inferencia. No se dispone todavía de un modelo
-validado para evaluar clientes. Las nuevas solicitudes de crédito se
-consideran una ampliación futura.
+sintéticos**. El contrato usa `default_12m`, pero el generador sintético no
+demuestra que la etiqueta corresponda a pagos observados durante los 12 meses
+posteriores al desembolso. Quedan pendientes la extracción desde SQL Server
+hacia el pipeline, la validación temporal de la etiqueta y de las variables
+disponibles en originación, el entrenamiento y evaluación de XGBoost y el
+servicio de inferencia. No se dispone todavía de un modelo validado para
+evaluar solicitudes reales. La tesis contempla AUC-ROC, Recall, F1-score, KS
+y Brier Score; ninguna de estas métricas finales se calcula en la demo actual.
 
 ## Instalación
 
@@ -100,6 +104,11 @@ controles para que el remuestreo no altere validación ni test.
 
 ## Documentación
 
+- [Plan estratégico y fases pendientes](PLAN_ESTRATEGICO_DESARROLLO.md).
+- [Matriz de trazabilidad entre tesis y repositorio](docs/matriz_trazabilidad.md).
+- [Decisiones metodológicas y cuestiones abiertas](docs/decisiones_metodologicas.md).
+- [Línea base verificada de la Fase 1](docs/LINEA_BASE_FASE1.md).
+- [Bitácora de desarrollo](BITACORA_DESARROLLO.md).
 - [Sprint 1 y trazabilidad de historias](README_SPRINT1.md).
 - [Guía de ejecución del Sprint 1](docs/guia_run_sprint1.md).
 - [Configuración y comprobación de SQL Server](docs/conexion_bd.md).

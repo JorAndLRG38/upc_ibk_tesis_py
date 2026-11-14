@@ -69,10 +69,11 @@ files.download(resumen["zip"])
 
 No es una prueba de conexión SQL Server/Tailscale. No utiliza el dataset de la
 BD, no entrena XGBoost y no genera probabilidades para clientes. El objetivo
-heredado `default_12m` sigue siendo una etiqueta sintética de atraso de al
-menos 30 días en 12 meses; todavía falta construir la etiqueta de al menos
-un día en 90 días y validar temporalmente el modelo. Las métricas internas de
-RFECV no son métricas finales de desempeño bancario.
+heredado `default_12m` sigue siendo una etiqueta sintética para el evento
+documentado de atraso de al menos 30 días en los 12 meses posteriores al
+desembolso; todavía falta comprobar esa definición con el dataset definitivo
+y validar temporalmente el modelo. Las métricas internas de RFECV no son
+métricas finales de desempeño bancario.
 
 El pipeline no acepta variables tentativas como confirmadas para forzar un
 resultado. Cambiar el tamaño o la semilla puede producir otra selección o un

@@ -30,6 +30,8 @@ entorno de desarrollo. No forman parte del código fuente ni de la publicación.
 | `.gitignore` | Excluye secretos, datos, resultados, caches, artefactos y archivos temporales generados. |
 | `README.md` | Presenta el objetivo, estado, instalación, ejecución, demo Colab, pruebas y documentación. |
 | `README_SPRINT1.md` | Trazabilidad del Sprint 1, historias, comandos de ejecución y criterios de calidad. |
+| `PLAN_ESTRATEGICO_DESARROLLO.md` | Ruta de fases pendientes; las fases 0 y 1 ya están documentadas como completadas. |
+| `BITACORA_DESARROLLO.md` | Historial breve de solicitudes, fechas, resultados y archivos modificados. |
 | `pytest.ini` | Configuración mínima de descubrimiento y ejecución de pytest. |
 | `requirements-training.txt` | Dependencias del pipeline de ingesta, EDA y preparación. |
 | `requirements-sprint2.txt` | Extiende las dependencias de entrenamiento con Boruta, imbalanced-learn y componentes del Sprint 2. |
@@ -59,9 +61,12 @@ entorno de desarrollo. No forman parte del código fuente ni de la publicación.
 | Archivo | Contenido y uso |
 |---|---|
 | `conexion_bd.md` | Configuración, ejecución y diagnóstico de la conexión a SQL Server. |
+| `decisiones_metodologicas.md` | Definiciones de la tesis, distinciones metodológicas y cuestiones abiertas. |
 | `demo_colab.md` | Alcance, ejecución, regeneración y limitaciones de la demo Colab. |
 | `estructura_proyecto.md` | Este inventario de carpetas y archivos. |
 | `guia_run_sprint1.md` | Explicación detallada del flujo de Sprint 1, entradas, salidas y errores frecuentes. |
+| `LINEA_BASE_FASE1.md` | Evidencia de las pruebas y ejecuciones sintéticas de la línea base. |
+| `matriz_trazabilidad.md` | Relación de objetivos, historias y capítulos de tesis con evidencia y brechas del repositorio. |
 | `sprint2_hu04_hu06.md` | Diseño, ejecución, evidencias y límites de HU04 (Boruta), HU05 (RFECV) y HU06 (SMOTE-ENN). |
 
 ## `notebooks/`

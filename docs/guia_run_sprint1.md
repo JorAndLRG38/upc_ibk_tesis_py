@@ -189,16 +189,15 @@ Estos dos últimos controles solo están disponibles al importar la función: no
 | Error al dividir clases o en la codificación | Revisa que existan ambas clases y suficientes ejemplos de cada una; se usan partición estratificada y cinco particiones internas. |
 | Error de valores infinitos o `NaN` | Revisa datos y columnas completamente vacías; la imputación no garantiza resolver todas las entradas posibles. |
 
-## 7. Alcance y diferencias con la tesis
+## 7. Alcance y brechas frente a la tesis revisada
 
-El comportamiento descrito corresponde a la versión actual. Hay diferencias concretas con las instrucciones del proyecto que deben resolverse antes de usar este flujo como evidencia de la metodología acordada:
+El comportamiento descrito corresponde a la versión actual. Tras revisar el documento de tesis, la unidad de análisis prevista es la solicitud de crédito en originación y el evento operativo documentado es `default_12m`. Persisten estas brechas antes de usar el flujo como evidencia de desempeño del modelo:
 
-- El contrato actual usa `default_12m`: atraso de al menos 30 días durante los 12 meses posteriores al desembolso. El acuerdo de la tesis usa `target_incumplimiento`: al menos un día de atraso durante los 90 días posteriores a `fecha_snapshot`. Cambiar solamente el nombre de la columna no resuelve esta diferencia.
-- El contrato describe solicitudes en originación. La tesis se orienta al seguimiento de créditos ya otorgados.
-- El programa lee archivos locales; no implementa la conexión a base de datos ni construye snapshots o etiquetas a partir del historial de pagos.
-- La partición actual es aleatoria y estratificada, sin agrupación por cliente ni separación temporal. No verifica madurez de etiquetas o disponibilidad de variables a la fecha de corte. El EDA también utiliza el futuro conjunto de prueba; sus resultados no deberían guiar ajustes de un modelo cuya evaluación se presente como independiente.
-- El contrato impone un máximo de edad de 85 años y el generador limita las edades a 80; esto difiere del acuerdo de no establecer un límite superior arbitrario.
-- El generador crea solicitudes sintéticas con fechas de 2023 a 2025 y etiquetas simuladas. No reproduce la estructura cliente–crédito–cuota ni el periodo 2020–31/08/2026 acordados para el dataset de investigación.
+- El contrato actual usa `default_12m`: atraso de al menos 30 días durante los 12 meses posteriores al desembolso, conforme a la definición operativa del documento de tesis. El CSV sintético ya incluye la etiqueta; este flujo no comprueba su construcción a partir del historial de pagos ni su madurez temporal.
+- El programa lee archivos locales. Existe una comprobación de conectividad SQL Server separada, pero aún no hay extracción de datos reales integrada al pipeline.
+- La partición de Sprint 1 es aleatoria y estratificada, sin agrupación por cliente ni separación temporal. Sprint 2 incorpora agrupación por cliente, pero tampoco constituye validación fuera de tiempo. Debe verificarse la disponibilidad de cada variable en originación. El EDA también utiliza el futuro conjunto de prueba; sus resultados no deberían guiar ajustes de un modelo cuya evaluación se presente como independiente.
+- El contrato impone un máximo de edad de 85 años y el generador limita las edades a 80. Estos límites deben justificarse o ajustarse al revisar el dataset definitivo.
+- El generador crea solicitudes sintéticas con fechas y etiquetas simuladas. No sustituye la comprobación de la estructura y cobertura temporal del dataset definitivo.
 
 Estas diferencias se documentan sin modificar las reglas del código en esta entrega.
 
@@ -207,6 +206,11 @@ Estas diferencias se documentan sin modificar las reglas del código en esta ent
 Se revisaron el coordinador, la ingesta, el análisis exploratorio, la preparación, la protección de identificadores, el contrato, el generador y las dependencias. También se consultó el entorno de PyCharm, que informó que no hay intérprete configurado.
 
 No se instalaron dependencias ni se ejecutaron el pipeline o las pruebas. Por tanto, los comandos documentan cómo ponerlo en marcha, pero no constituyen una ejecución exitosa comprobada en este equipo.
+
+**Actualización posterior:** esta sección conserva el registro de aquella
+revisión inicial. La [línea base de Fase 1](./LINEA_BASE_FASE1.md) documenta
+una ejecución posterior de 78 pruebas aprobadas y de ambos sprints con datos
+sintéticos el 14/11/2026.
 
 Una vez preparado el entorno, puedes ejecutar las pruebas funcionales existentes sin la prueba de rendimiento:
 
